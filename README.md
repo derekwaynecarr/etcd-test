@@ -26,7 +26,8 @@ To gather metrics:
 
 N=1000000
 
-|| Stat || Value ||
+| Metric | Value |
+| ---- | ---- |
 | Time to populate | ? |
 | Time to list all projects (Avg) | ? |
 | Time to list all deployments (Avg) | ? |
