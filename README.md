@@ -6,35 +6,30 @@ Populate N projects, where each project has a single deployment config.
 
 ## How to run tests
 
-Start with defaults:
+Start etcd with defaults:
 
 $ etcd
 
 To populate:
 
 ```
+export STATS_LABEL="large"
 export TOTAL_PROJECTS=1000000
 time ./populate.sh
 ```
 
-To gather metrics:
+To view metrics:
 
+At every MEM_INTERVAL number of projects, etcd memory and snapshot sizes are recorded.
+
+By default, MEM_INTERVAL was 10000 to align closely with etcd snapshot interval.
+
+```
+cd stats/large
+cat etcd.${NUM_PROJECT}.memory
+cat etcd.${NUM_PROJECT}.snapshot
+```
 
 ## Test results
 
-### Etcd 0.4.5
-
-N=1000000
-
-| Metric | Value |
-| ---- | ---- |
-| Time to populate | ? |
-| Time to list all projects (Avg) | ? |
-| Time to list all deployments (Avg) | ? |
-| Time to watch projects (initial) | ? |
-| Time to watch deployments (initial) | ? |
-| Etcd Mem Usage | ? |
-| Etcd Snapshot size | ? |
-| Etcd Log size | ? |
-| Etcd start-up time | ? |
-
+See docs
