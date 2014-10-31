@@ -1,10 +1,13 @@
 #!/bin/bash
 
+# Scenario:
+#  Add N nodes as first level children of N directories.
+#  Intended to illustrate memory usage of etcd at large numbers of directories, each with a single node.
 # Prerequisite:
 #  Ensure etcd is running.
 #
 # Usage instructions:
-# STATS_LABEL="small" TOTAL_NODES=10 LOG_INTERVAL=1 MEM_INTERVAL=10 RESOURCE="data/project.json" ./populate.sh
+# STATS_LABEL="small" TOTAL_NODES=10 LOG_INTERVAL=1 MEM_INTERVAL=10 RESOURCE="data/project.json" ./populate-nodes-in-dir.sh
 
 # Global variables
 ETCD="http://127.0.0.1:4001"
@@ -35,8 +38,8 @@ echo "Begin population"
 while [ $NUM_NODE -lt $TOTAL_NODES ]; do
   
   # create a node in a directory
-  NODE_DIR_ID="node_${SALT}_${NUM_NODES}"
-  NODE_ID="node_${NUM_NODES}"
+  NODE_DIR_ID="node_${SALT}_${NUM_NODE}"
+  NODE_ID="node_${NUM_NODE}"
   KEY_PATH="${KEY_NODE_DIR}/${NODE_DIR_ID}/${NODE_ID}"
   curl -silent -L $ETCD/v2/keys/$KEY_PATH -XPUT -d value="$(cat $RESOURCE)" >/dev/null
 
