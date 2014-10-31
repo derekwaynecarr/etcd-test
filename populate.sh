@@ -110,7 +110,7 @@ while [ $NUM_PROJECT -lt $TOTAL_PROJECTS ]; do
   if [ $(($NUM_PROJECT%$MEM_INTERVAL)) == 0 ]; then
     echo "Output stats for etcd at ${NUM_PROJECT}"
     cat /proc/$PID_ETCD/status > $STATS_DIR/etcd.${NUM_PROJECT}.memory
-    ls -lsh localhost.localdomain.etcd/snapshot > $STATS_DIR/etcd.${NUM_PROJECT}.snapshot
+    ls -lsh default.etcd/snap > $STATS_DIR/etcd.${NUM_PROJECT}.snapshot
   fi
   let NUM_PROJECT=NUM_PROJECT+1
 done
@@ -118,7 +118,7 @@ done
 echo "Populated ${NUM_PROJECT} projects"
 echo "Output stats for etcd at ${NUM_PROJECT}"
 cat /proc/$PID_ETCD/status > $STATS_DIR/etcd.${NUM_PROJECT}.memory
-ls -lsh localhost.localdomain.etcd/snapshot > $STATS_DIR/etcd.${NUM_PROJECT}.snapshot
+ls -lsh default.etcd/snap > $STATS_DIR/etcd.${NUM_PROJECT}.snapshot
 echo "Done"
 
 
