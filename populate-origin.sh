@@ -1,10 +1,15 @@
 #!/bin/bash
 
+# Scenario:
+#  Adds N projects, where each project has a project scoped deploymentConfig
+#  Intended to illustrate memory usage of etcd at large numbers of nodes in a directory
+#  And large numbers of directories with a single node.
+# 
 # Prerequisite:
 #  Ensure etcd is running.
 #
 # Usage instructions:
-# STATS_LABEL="small" TOTAL_PROJECTS=10 ./populate.sh
+# STATS_LABEL="small" TOTAL_PROJECTS=10 ./populate-origin.sh
 # Populate 10 projects, and output results in ./stats/small/
 
 # Global variables
@@ -36,72 +41,14 @@ echo "Begin population"
 while [ $NUM_PROJECT -lt $TOTAL_PROJECTS ]; do
   
   # create a project
-  PROJECT_JSON='{ 
-    "id": "${PROJECT_ID}", 
-    "kind": "Project", 
-    "apiVersion": "v1beta1", 
-    "displayName": "Hello ${PROJECT_ID}", 
-    "description": "This is an example project", 
-    "labels": 
-      {"name": "hello-openshift-project"}
-    }'    
   PROJECT_ID="project_${SALT}_${NUM_PROJECT}"
   KEY_PATH="${KEY_PROJECT_DIR}/${PROJECT_ID}"
-  curl -silent -L $ETCD/v2/keys/$KEY_PATH -XPUT -d value="$PROJECT_JSON" >/dev/null
+  curl -silent -L $ETCD/v2/keys/$KEY_PATH -XPUT -d value="$(cat data/project.json)" >/dev/null
 
   # create a deployment config
-  DEPLOYMENT_CONFIG_JSON='{
-    "id": "redisslave-config",
-    "kind": "DeploymentConfig",
-    "apiVersion": "v1beta1",
-    "triggerPolicy": "manual",
-    "template": {
-      "strategy": {
-        "type": "CustomPod",
-        "customPod": {
-          "image": "127.0.0.1:5000/openshift/kube-deploy"
-        }
-    },
-    "controllerTemplate": {
-      "replicas": 2,
-      "replicaSelector": {
-        "name": "redisslave"
-      },
-      "podTemplate": {
-        "desiredState": {
-          "manifest": {
-            "version": "v1beta1",
-            "id": "redisSlaveController",
-            "containers": [
-              {
-                "name": "slave",
-                "image": "brendanburns/redis-slave",
-                "env": [
-                  {
-                    "name": "REDIS_PASSWORD",
-                    "value": "secret"
-                  }
-                ],
-                "ports": [
-                  {
-                    "containerPort": 6379
-                  }
-                ]
-              }
-            ]
-          }
-        },
-        "labels": {
-          "name": "redisslave"
-        }
-      }
-    }
-  }
-}'
-
   DEPLOYMENT_CONFIG_ID="redisslave-config"
   KEY_PATH="${KEY_DEPLOYMENT_CONFIG_DIR}/${PROJECT_ID}/${DEPLOYMENT_CONFIG_ID}"
-  curl -silent -L $ETCD/v2/keys/$KEY_PATH -XPUT -d value="$DEPLOYMENT_CONFIG_JSON" >/dev/null
+  curl -silent -L $ETCD/v2/keys/$KEY_PATH -XPUT -d value="$(cat data/deploymentConfig.json)" >/dev/null
 
   if [ $(($NUM_PROJECT%$LOG_INTERVAL)) == 0 ]; then
     echo "Populated ${NUM_PROJECT} projects"
@@ -120,7 +67,3 @@ echo "Output stats for etcd at ${NUM_PROJECT}"
 cat /proc/$PID_ETCD/status > $STATS_DIR/etcd.${NUM_PROJECT}.memory
 ls -lsh default.etcd/snap > $STATS_DIR/etcd.${NUM_PROJECT}.snapshot
 echo "Done"
-
-
-
-
