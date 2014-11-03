@@ -1,0 +1,9 @@
+{ 
+"id": "${PROJECT_ID}", 
+"kind": "Project", 
+"apiVersion": "v1beta1", 
+"displayName": "Hello ${PROJECT_ID}", 
+"description": "This is an example project", 
+"labels": 
+ {"name": "hello-openshift-project"}
+}
