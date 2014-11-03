@@ -21,9 +21,9 @@ There was no significant change in performance between etcd 0.5 and prior versio
 | Scenario | Results |
 | --- | --- |
 | 200k nodes in a directory | [Results](docs/results-nodes-in-dir-200k.ods?raw=true) |
-| 200k nodes in a directory with 0 byte values | [Results](docs/results-nodes-in-dir-empty-value.ods?raw=true) |
+| 200k nodes in a directory with 0 byte values | [Results](docs/results-nodes-in-dir-200k.ods?raw=true) |
 | 200k directories each with a single node | [Results](docs/results-nodes-span-dir-200k.ods?raw=true) |
-| 1 million projects in origin with 1 deployment | [Results](docs/origin.ods?raw=true) |
+| 1 million projects in origin with 1 deployment | [Results](docs/results-origin.ods?raw=true) |
 
 ## Scenario: Large numbers of nodes in a single directory
 
