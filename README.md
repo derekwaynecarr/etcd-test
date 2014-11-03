@@ -10,11 +10,11 @@ At large numbers of nodes, etcd appears to scale close to a 13 : 1 memory to sna
 
 Start-up time is pretty good even at large numbers of nodes, and seems to scale more with node size than data size.
 
-Garbage collection in Go needs to be better analyzed, obvious plateaus at 10k intervals in etcd.
+Garbage collection in Go needs to be better analyzed, obvious plateaus at select 10k intervals in etcd where its obvious garbage collection ocurred.  Either way, at process restart, it did not appear that memory usage was related to garbage.
 
 It's possible binary storage in etcd could help, but it appears that it could only help us get closer to the measured 13:1 possible ideal ratio.
 
-There was no significant change in performance between etcd 0.5 and prior versions except write speed was observed as slower in latest code.
+There was no significant change in performance between etcd 0.5 and prior versions except write speed was observed as slower in latest code presumably due to more accurate use of write-ahead logs.
 
 ## View results
 
