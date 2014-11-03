@@ -6,22 +6,24 @@ This is a set of suites used to evaluate etcd at large scales of nodes.
 
 ## Key Take-aways
 
-At large numbers of nodes, etcd appears to scale close to a 13 : 1 memory to disk usage ratio independent of key value size.
+At large numbers of nodes, etcd appears to scale close to a 13 : 1 memory to snapshot disk usage ratio independent of key value size.
 
 Start-up time is pretty good even at large numbers of nodes, and seems to scale more with node size than data size.
 
 Garbage collection in Go needs to be better analyzed, obvious plateaus at 10k intervals in etcd.
 
-It's possible binary storage in etcd could help, but it appears that it could only help us get closer to the measured 13:1 ratio.
+It's possible binary storage in etcd could help, but it appears that it could only help us get closer to the measured 13:1 possible ideal ratio.
+
+There was no significant change in performance between etcd 0.5 and prior versions except write speed was observed as slower in latest code.
 
 ## View results
 
 | Scenario | Results |
 | --- | --- |
-| 200k nodes in a directory | link |
-| 200k nodes in a directory with 0 byte values | link |
-| 200k directories each with a single node | link |
-| 1 million projects in origin with 1 deployment | link |
+| 200k nodes in a directory | [Results](docs/results-nodes-in-dir-200k.ods) |
+| 200k nodes in a directory with 0 byte values | [Results](docs/results-nodes-in-dir-empty-value.ods) |
+| 200k directories each with a single node | [Results](docs/results-nodes-span-dir-200k.ods) |
+| 1 million projects in origin with 1 deployment | [Results](docs/origin.ods) |
 
 ## Scenario: Large numbers of nodes in a single directory
 
