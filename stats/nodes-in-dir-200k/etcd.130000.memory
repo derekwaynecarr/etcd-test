@@ -1,0 +1,41 @@
+Name:	etcd
+State:	S (sleeping)
+Tgid:	5252
+Ngid:	0
+Pid:	5252
+PPid:	3699
+TracerPid:	0
+Uid:	1000	1000	1000	1000
+Gid:	1000	1000	1000	1000
+FDSize:	256
+Groups:	10 987 1000 
+VmPeak:	  666852 kB
+VmSize:	  666852 kB
+VmLck:	       0 kB
+VmPin:	       0 kB
+VmHWM:	  603176 kB
+VmRSS:	  601048 kB
+VmData:	  660900 kB
+VmStk:	     136 kB
+VmExe:	    2428 kB
+VmLib:	       0 kB
+VmPTE:	    1240 kB
+VmSwap:	       0 kB
+Threads:	6
+SigQ:	0/46754
+SigPnd:	0000000000000000
+ShdPnd:	0000000000000000
+SigBlk:	0000000000000000
+SigIgn:	0000000000000000
+SigCgt:	fffffffe7fc1feff
+CapInh:	0000000000000000
+CapPrm:	0000000000000000
+CapEff:	0000000000000000
+CapBnd:	0000003fffffffff
+Seccomp:	0
+Cpus_allowed:	ff
+Cpus_allowed_list:	0-7
+Mems_allowed:	00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000001
+Mems_allowed_list:	0
+voluntary_ctxt_switches:	175661
+nonvoluntary_ctxt_switches:	3429
