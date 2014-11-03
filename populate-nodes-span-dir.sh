@@ -32,7 +32,7 @@ mkdir -p $STATS_DIR
 
 # Counters
 NUM_NODE=0
-KEY_NODE_DIR="/nodes"
+KEY_NODE_DIR="nodes"
 
 echo "Begin population"
 while [ $NUM_NODE -lt $TOTAL_NODES ]; do
@@ -41,7 +41,7 @@ while [ $NUM_NODE -lt $TOTAL_NODES ]; do
   NODE_DIR_ID="node_${SALT}_${NUM_NODE}"
   NODE_ID="node_${NUM_NODE}"
   KEY_PATH="${KEY_NODE_DIR}/${NODE_DIR_ID}/${NODE_ID}"
-  curl -silent -L $ETCD/v2/keys/$KEY_PATH -XPUT -d value="$(cat $RESOURCE)" >/dev/null
+  curl -silent -L $ETCD/v2/keys/$KEY_PATH -XPUT --data-urlencode value@${RESOURCE} >/dev/null
 
   if [ $(($NUM_NODE%$LOG_INTERVAL)) == 0 ]; then
     echo "Populated ${NUM_NODE} nodes"

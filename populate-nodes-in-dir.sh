@@ -16,7 +16,7 @@ LOG_INTERVAL=${LOG_INTERVAL-"10000"}
 MEM_INTERVAL=${MEM_INTERVAL-"100000"}
 STATS_LABEL=${STATS_LABEL-"default"}
 TOTAL_NODES=${TOTAL_NODES-"10"}
-RESOURCE=${RESOURCE-"data/project.json"}
+RESOURCE=${RESOURCE-"./data/project.json"}
 
 # Ensure etcd is running
 PID_ETCD=$(pidof etcd)
@@ -32,7 +32,7 @@ mkdir -p $STATS_DIR
 
 # Counters
 NUM_NODE=0
-KEY_NODE_DIR="/nodes"
+KEY_NODE_DIR="nodes"
 
 echo "Begin population"
 while [ $NUM_NODE -lt $TOTAL_NODES ]; do
@@ -40,7 +40,7 @@ while [ $NUM_NODE -lt $TOTAL_NODES ]; do
   # create a node
   NODE_ID="node_${SALT}_${NUM_NODE}"
   KEY_PATH="${KEY_NODE_DIR}/${NODE_ID}"
-  curl -silent -L $ETCD/v2/keys/$KEY_PATH -XPUT -d value="$(cat $RESOURCE)" >/dev/null
+  curl -silent -L $ETCD/v2/keys/$KEY_PATH -XPUT --data-urlencode value@${RESOURCE} >/dev/null
 
   if [ $(($NUM_NODE%$LOG_INTERVAL)) == 0 ]; then
     echo "Populated ${NUM_NODE} nodes"
