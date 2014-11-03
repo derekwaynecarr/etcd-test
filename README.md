@@ -6,13 +6,13 @@ This is a set of suites used to evaluate etcd at large scales of nodes.
 
 ## Key Take-aways
 
-At large numbers of nodes, etcd appears to scale close to a 13 : 1 memory to disk usage ratio independent of key value size.
+At large numbers of nodes, etcd appears to scale close to a 13 : 1 memory to snapshot disk usage ratio independent of key value size.
 
 Start-up time is pretty good even at large numbers of nodes, and seems to scale more with node size than data size.
 
 Garbage collection in Go needs to be better analyzed, obvious plateaus at 10k intervals in etcd.
 
-It's possible binary storage in etcd could help, but it appears that it could only help us get closer to the measured 13:1 ideal ratio.
+It's possible binary storage in etcd could help, but it appears that it could only help us get closer to the measured 13:1 possible ideal ratio.
 
 There was no significant change in performance between etcd 0.5 and prior versions except write speed was observed as slower in latest code.
 
